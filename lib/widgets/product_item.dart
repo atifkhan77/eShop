@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Screens/productDetail.dart';
 import 'package:flutter_application_1/providers/product.dart';
+import 'package:flutter_application_1/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProductItems extends StatelessWidget {
   const ProductItems({super.key});
 
+  // final String id;
+  // final String title;
+  // final String imageUrl;
+  // ProductItems(this.id, this.title, this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    final product = Provider.of<Product>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
-          leading: IconButton(
-            icon: Icon(
-              product.isFav ? Icons.favorite : Icons.favorite_border,
+          leading: Consumer<ProductProvider>(
+            builder: (context, value, _) => IconButton(
+              icon: Icon(
+                product.isFav ? Icons.favorite : Icons.favorite_border,
+              ),
+              onPressed: () {
+                product.toggleFav();
+              },
+              color: Theme.of(context).secondaryHeaderColor,
             ),
-            onPressed: () {
-              product.toggleFav();
-            },
-            color: Theme.of(context).secondaryHeaderColor,
           ),
           backgroundColor: Colors.black87,
           title: Text(
