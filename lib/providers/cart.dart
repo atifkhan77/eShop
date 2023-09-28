@@ -21,6 +21,19 @@ class Cart with ChangeNotifier {
     return {..._items};
   }
 
+  int get itemCount {
+    // ignore: unnecessary_null_comparison
+    return _items == null ? 0 : _items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, CartItem) {
+      total += CartItem.price * CartItem.quantity;
+    });
+    return total;
+  }
+
   void addItems(String productId, double price, String title) {
     if (_items.containsKey(productId)) {
       _items.update(
@@ -42,5 +55,6 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
   }
 }
