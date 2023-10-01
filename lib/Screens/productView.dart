@@ -4,8 +4,6 @@ import 'package:flutter_application_1/providers/cart.dart';
 import 'package:flutter_application_1/widgets/prorduct_grid.dart';
 import 'package:provider/provider.dart';
 import '../widgets/badge.dart';
-import '../widgets/prorduct_grid.dart';
-import '../providers/cart.dart';
 
 enum FilterOption {
   Favorites,
@@ -57,7 +55,7 @@ class _ProductViewState extends State<ProductView> {
             builder: (_, cartData, ch) => Badged(
               value: cartData.itemCount.toString(),
               color: Theme.of(context).secondaryHeaderColor,
-              child: ch,
+              child: Container(child: ch),
             ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
